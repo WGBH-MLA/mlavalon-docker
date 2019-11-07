@@ -30,6 +30,7 @@ ADD         Gemfile.local /home/app/avalon/
 ADD         config /home/app/avalon/config/
 ARG         RAILS_ENV=production
 RUN         cd avalon && \
+            gem update --system && \
               gem install bundler && \
               bundle config build.nokogiri --use-system-libraries && \
               bundle install --path=vendor/gems --with postgres --without development test profiling mysql && \
