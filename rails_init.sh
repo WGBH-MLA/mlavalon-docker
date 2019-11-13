@@ -13,10 +13,9 @@ chmod 0777 -R /masterfiles
 chown -R app /masterfiles
 cd /home/app/avalon
 
+service nginx restart
+
 su app
 BACKGROUND=yes QUEUE=* bundle exec rake resque:work
 BACKGROUND=yes bundle exec rake environment resque:scheduler
 RAILS_ENV=production bundle exec rake db:migrate
-service nginx restart
-passenger start &
-
