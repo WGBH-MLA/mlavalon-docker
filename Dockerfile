@@ -27,29 +27,29 @@ WORKDIR     /home/app
 
 # no time for love, dr chowns
 RUN         git clone --branch=${AVALON_BRANCH} --depth=1 ${AVALON_REPO}
-RUN         chown -R app:app /home/app/avalon
-
-USER        app
-ADD         Gemfile.local /home/app/avalon/
-ADD         config /home/app/avalon/config/
-ARG         RAILS_ENV=production
-RUN         cd avalon && \
-            gem update --system && \
-              gem install bundler && \
-              bundle config build.nokogiri --use-system-libraries && \
-              bundle install --path=vendor/gems --with postgres --without development test profiling mysql && \
-              cd ..
-ARG         BASE_URL
-ARG         DATABASE_URL
-RUN         cd avalon \
-         && mkdir -p tmp/pids \
-         && touch log/production.log \
-         && ls -alh log \
-         && bundle exec whenever -w -f config/docker_schedule.rb \
-         && bundle exec rake assets:precompile SECRET_KEY_BASE=$(ruby -r 'securerandom' -e 'puts SecureRandom.hex(64)') \
-         && cp config/controlled_vocabulary.yml.example config/controlled_vocabulary.yml
-USER        root
 # RUN         chown -R app:app /home/app/avalon
-ADD         ./avalon.conf /etc/nginx/sites-available/avalon
-ADD         ./nginx_env.conf /etc/nginx/main.d/env.conf
-ADD         rails_init.sh /etc/my_init.d/30_rails_init.sh
+
+# USER        app
+# ADD         Gemfile.local /home/app/avalon/
+# ADD         config /home/app/avalon/config/
+# ARG         RAILS_ENV=production
+# RUN         cd avalon && \
+#             gem update --system && \
+#               gem install bundler && \
+#               bundle config build.nokogiri --use-system-libraries && \
+#               bundle install --path=vendor/gems --with postgres --without development test profiling mysql && \
+#               cd ..
+# ARG         BASE_URL
+# ARG         DATABASE_URL
+# RUN         cd avalon \
+#          && mkdir -p tmp/pids \
+#          && touch log/production.log \
+#          && ls -alh log \
+#          && bundle exec whenever -w -f config/docker_schedule.rb \
+#          && bundle exec rake assets:precompile SECRET_KEY_BASE=$(ruby -r 'securerandom' -e 'puts SecureRandom.hex(64)') \
+#          && cp config/controlled_vocabulary.yml.example config/controlled_vocabulary.yml
+# USER        root
+# # RUN         chown -R app:app /home/app/avalon
+# ADD         ./avalon.conf /etc/nginx/sites-available/avalon
+# ADD         ./nginx_env.conf /etc/nginx/main.d/env.conf
+# ADD         rails_init.sh /etc/my_init.d/30_rails_init.sh
