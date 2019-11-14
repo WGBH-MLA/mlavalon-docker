@@ -26,10 +26,10 @@ ARG         AVALON_BRANCH=master
 WORKDIR     /home/app
 
 # no time for love, dr chowns
+RUN         git clone --branch=${AVALON_BRANCH} --depth=1 ${AVALON_REPO}
 RUN         chown -R app:app /home/app/avalon
 
 USER        app
-RUN         git clone --branch=${AVALON_BRANCH} --depth=1 ${AVALON_REPO}
 ADD         Gemfile.local /home/app/avalon/
 ADD         config /home/app/avalon/config/
 ARG         RAILS_ENV=production
