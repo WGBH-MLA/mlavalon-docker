@@ -24,6 +24,10 @@ RUN         ln -s /usr/bin/lsof /usr/sbin/ && \
 ARG         AVALON_REPO=https://github.com/wgbh-mla/mlavalon.git
 ARG         AVALON_BRANCH=master
 WORKDIR     /home/app
+
+# no time for love, dr chowns
+RUN         chown -R app:app /home/app/avalon
+
 USER        app
 RUN         git clone --branch=${AVALON_BRANCH} --depth=1 ${AVALON_REPO}
 ADD         Gemfile.local /home/app/avalon/
@@ -45,7 +49,7 @@ RUN         cd avalon \
          && bundle exec rake assets:precompile SECRET_KEY_BASE=$(ruby -r 'securerandom' -e 'puts SecureRandom.hex(64)') \
          && cp config/controlled_vocabulary.yml.example config/controlled_vocabulary.yml
 USER        root
-RUN         chown -R app:app /home/app/avalon
+# RUN         chown -R app:app /home/app/avalon
 ADD         ./avalon.conf /etc/nginx/sites-available/avalon
 ADD         ./nginx_env.conf /etc/nginx/main.d/env.conf
 ADD         rails_init.sh /etc/my_init.d/30_rails_init.sh
