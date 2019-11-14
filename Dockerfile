@@ -21,7 +21,7 @@ RUN         ln -s /usr/bin/lsof /usr/sbin/ && \
             rm -f /etc/service/nginx/down && \
             ln -s /etc/nginx/sites-available/avalon /etc/nginx/sites-enabled/avalon && \
             chown app:docker_env /etc/container_environment.sh
-ARG         AVALON_REPO=https://github.com/avalonmediasystem/avalon.git
+ARG         AVALON_REPO=https://github.com/wgbh-mla/mlavalon.git
 ARG         AVALON_BRANCH=master
 WORKDIR     /home/app
 USER        app

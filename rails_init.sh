@@ -18,4 +18,4 @@ service nginx restart
 su app
 BACKGROUND=yes QUEUE=* bundle exec rake resque:work
 BACKGROUND=yes bundle exec rake environment resque:scheduler
-RAILS_ENV=production bundle exec rake db:migrate
+RAILS_ENV=production bundle exec rake db:setup
