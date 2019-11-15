@@ -53,3 +53,7 @@ USER        root
 ADD         ./avalon.conf /etc/nginx/sites-available/avalon
 ADD         ./nginx_env.conf /etc/nginx/main.d/env.conf
 ADD         rails_init.sh /etc/my_init.d/30_rails_init.sh
+ADD         ./profile /etc/profile
+
+# this needs to be in our rancher settings for the avalon workload so that it gets run on container start
+# env | sed 's#^#export #1;s#=#&"#1;s#$#"&#1' > /etc/profile.d/avalon_nginx_env
