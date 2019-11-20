@@ -25,13 +25,14 @@ ARG         AVALON_REPO=https://github.com/WGBH-MLA/mlavalon.git
 ARG         AVALON_BRANCH=master
 WORKDIR     /home/app
 
-# RUN         git clone --branch=${AVALON_BRANCH} --depth=1 ${AVALON_REPO} avalon
 
 ADD https://api.github.com/repos/WGBH-MLA/mlavalon/git/refs/heads/$AVALON_BRANCH version.json
-RUN git clone -b $AVALON_BRANCH https://github.com/WGBH-MLA/mlavalon.git $(cat version.json)
+RUN         git clone --branch=${AVALON_BRANCH} --depth=1 ${AVALON_REPO} avalon
+# RUN git clone -b $AVALON_BRANCH https://github.com/WGBH-MLA/mlavalon.git $(cat version.json)
 
 # WORKDIR     /home/app/avalon
-# RUN         git checkout $(git ls-remote https://github.com/WGBH-MLA/mlavalon.git HEAD | awk '{ print $1}')
+# RUN git fetch && git checkout master
+# RUN           git checkout $(git ls-remote https://github.com/WGBH-MLA/mlavalon.git HEAD | awk '{ print $1}')
 # RUN         git reset --hard origin/master
 # RUN         git pull
 
