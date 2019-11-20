@@ -25,12 +25,11 @@ ARG         AVALON_REPO=https://github.com/WGBH-MLA/mlavalon.git
 ARG         AVALON_BRANCH=master
 WORKDIR     /home/app
 
-# no time for love, dr chowns
 RUN         git clone --branch=${AVALON_BRANCH} --depth=1 ${AVALON_REPO} avalon
-
 WORKDIR     /home/app/avalon
-RUN         git reset --hard origin/master
-RUN         git pull
+RUN         git checkout $(git ls-remote https://github.com/gturri/dokuJClient.git HEAD | awk '{ print $1}')
+# RUN         git reset --hard origin/master
+# RUN         git pull
 
 WORKDIR     /home/app
 RUN         chown -R app:app /home/app/avalon
