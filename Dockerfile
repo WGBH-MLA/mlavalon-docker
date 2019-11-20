@@ -27,7 +27,7 @@ WORKDIR     /home/app
 
 RUN         git clone --branch=${AVALON_BRANCH} --depth=1 ${AVALON_REPO} avalon
 WORKDIR     /home/app/avalon
-RUN         git checkout origin $(git ls-remote https://github.com/WGBH-MLA/mlavalon.git HEAD | awk '{ print $1}')
+RUN         git checkout $(git ls-remote https://github.com/WGBH-MLA/mlavalon.git HEAD | awk '{ print $1}')
 # RUN         git reset --hard origin/master
 # RUN         git pull
 
