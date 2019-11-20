@@ -27,6 +27,9 @@ WORKDIR     /home/app
 
 # no time for love, dr chowns
 RUN         git clone --branch=${AVALON_BRANCH} --depth=1 ${AVALON_REPO} avalon
+RUN         git reset --hard origin/master
+RUN         git pull
+
 RUN         chown -R app:app /home/app/avalon
 
 USER        app
