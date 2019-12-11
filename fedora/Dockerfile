@@ -1,4 +1,4 @@
 FROM        avalonmediasystem/fedora:4.7.5
 ARG         AVALON_BRANCH=master
-
-COPY        ./repository.json blahblah.json
+WORKDIR     /var/lib/jetty/fedora/
+COPY        ./repository.json repository.json
