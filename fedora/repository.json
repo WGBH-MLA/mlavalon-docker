@@ -10,7 +10,7 @@
     "storage" : {
         "persistence": {
             "type" : "db",
-            "connectionUrl": "jdbc:postgresql://${fcrepo.postgresql.host:localhost}:${fcrepo.postgresql.port:5432}/${fcrepo.postgresql.database}",
+            "connectionUrl": "jdbc:postgresql://${fcrepo.postgresql.host:localhost}:${fcrepo.postgresql.port:5432}/fcrepo",
             "driver" : "org.postgresql.Driver",
             "username" : "${fcrepo.postgresql.username}",
             "password" : "${fcrepo.postgresql.password}"
