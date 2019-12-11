@@ -3,4 +3,4 @@ ARG         AVALON_BRANCH=master
 
 WORKDIR     /tmp
 COPY        ./blahblah blahblah
-COPY        ./repository.json repository.json
+COPY        ./repository.json blahblah.json
