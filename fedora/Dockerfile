@@ -14,6 +14,6 @@ USER        jetty
 
 
 # WORKDIR     /var/lib/jetty/fedora/
-# ADD         --chown=jetty:jetty ./repository.json repository.json
+ADD         --chown=jetty:jetty ./repository.json repository.json
 
 EXPOSE      8080
