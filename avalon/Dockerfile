@@ -56,8 +56,8 @@ RUN         cd avalon \
          && touch log/production.log \
          && ls -alh log \
          && bundle exec whenever -w -f config/docker_schedule.rb \
-         && bundle exec rake assets:precompile SECRET_KEY_BASE=$(ruby -r 'securerandom' -e 'puts SecureRandom.hex(64)') \
-         && cp config/controlled_vocabulary.yml.example config/controlled_vocabulary.yml
+         && bundle exec rake assets:precompile SECRET_KEY_BASE=$(ruby -r 'securerandom' -e 'puts SecureRandom.hex(64)')
+
 USER        root
 # RUN         chown -R app:app /home/app/avalon
 ADD         ./avalon.conf /etc/nginx/sites-available/avalon
