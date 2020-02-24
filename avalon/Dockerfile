@@ -14,6 +14,7 @@ RUN         apt-get update && apt-get install -y \
             sendmail \
             yarn \
             nodejs \
+            imagemagick \
          && rm -rf /var/lib/apt/lists/* \
          && apt-get clean
 RUN         ln -s /usr/bin/lsof /usr/sbin/ && \
@@ -25,16 +26,8 @@ ARG         AVALON_REPO=https://github.com/WGBH-MLA/mlavalon.git
 ARG         AVALON_BRANCH=7-upgrade
 WORKDIR     /home/app
 
-
 ADD https://api.github.com/repos/WGBH-MLA/mlavalon/git/refs/heads/$AVALON_BRANCH version.json
 RUN         git clone --branch=${AVALON_BRANCH} --depth=1 ${AVALON_REPO} avalon
-# RUN git clone -b $AVALON_BRANCH https://github.com/WGBH-MLA/mlavalon.git $(cat version.json)
-
-# WORKDIR     /home/app/avalon
-# RUN git fetch && git checkout master
-# RUN           git checkout $(git ls-remote https://github.com/WGBH-MLA/mlavalon.git HEAD | awk '{ print $1}')
-# RUN         git reset --hard origin/master
-# RUN         git pull
 
 WORKDIR     /home/app
 RUN         chown -R app:app /home/app/avalon
@@ -59,11 +52,8 @@ RUN         cd avalon \
          && bundle exec rake assets:precompile SECRET_KEY_BASE=$(ruby -r 'securerandom' -e 'puts SecureRandom.hex(64)')
 
 USER        root
-# RUN         chown -R app:app /home/app/avalon
 ADD         ./avalon.conf /etc/nginx/sites-available/avalon
 ADD         ./nginx_env.conf /etc/nginx/main.d/env.conf
 ADD         rails_init.sh /etc/my_init.d/30_rails_init.sh
-ADD         ./profile /etc/profile
-
-# this needs to be in our rancher settings for the avalon workload so that it gets run on container start
-# env | sed 's#^#export #1;s#=#&"#1;s#$#"&#1' > /etc/profile.d/avalon_nginx_env
+RUN         mkdir /streamfiles && chmod 0777 /streamfiles
+VOLUME      /streamfiles
