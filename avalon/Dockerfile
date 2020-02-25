@@ -55,5 +55,6 @@ USER        root
 ADD         ./avalon.conf /etc/nginx/sites-available/avalon
 ADD         ./nginx_env.conf /etc/nginx/main.d/env.conf
 ADD         rails_init.sh /etc/my_init.d/30_rails_init.sh
+ADD         ./profile /etc/profile
 RUN         mkdir /streamfiles && chmod 0777 /streamfiles
 VOLUME      /streamfiles
