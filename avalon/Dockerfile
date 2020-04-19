@@ -23,7 +23,8 @@ RUN         ln -s /usr/bin/lsof /usr/sbin/ && \
             ln -s /etc/nginx/sites-available/avalon /etc/nginx/sites-enabled/avalon && \
             chown app:docker_env /etc/container_environment.sh
 ARG         AVALON_REPO=https://github.com/WGBH-MLA/mlavalon.git
-ARG         AVALON_BRANCH=master
+# ARG         AVALON_BRANCH=master
+ARG         AVALON_BRANCH=92-create-mars-ingests
 WORKDIR     /home/app
 
 ADD https://api.github.com/repos/WGBH-MLA/mlavalon/git/refs/heads/$AVALON_BRANCH version.json
