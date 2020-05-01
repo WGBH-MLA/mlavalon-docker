@@ -45,6 +45,10 @@ RUN         cd avalon && \
               cd ..
 ARG         BASE_URL
 ARG         DATABASE_URL
+
+WORKDIR     /home/app/avalon
+RUN         yarn cache clean && rm -rf ./node_modules
+
 RUN         cd avalon \
          && mkdir -p tmp/pids \
          && touch log/production.log \
@@ -59,6 +63,4 @@ ADD         rails_init.sh /etc/my_init.d/30_rails_init.sh
 ADD         ./profile /etc/profile
 RUN         mkdir /streamfiles && chmod 0777 /streamfiles
 
-WORKDIR     /home/app/avalon
-RUN         yarn cache clean && rm -rf ./node_modules
 VOLUME      /streamfiles
