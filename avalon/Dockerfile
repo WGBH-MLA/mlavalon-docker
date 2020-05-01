@@ -48,8 +48,7 @@ ARG         DATABASE_URL
 WORKDIR     /home/app/avalon
 RUN         yarn cache clean && rm -rf ./node_modules
 
-WORKDIR /home/app
-RUN         cd avalon 
+WORKDIR /home/app/avalon
 RUN mkdir -p tmp/pids 
 RUN touch log/production.log 
 RUN ls -alh log 
