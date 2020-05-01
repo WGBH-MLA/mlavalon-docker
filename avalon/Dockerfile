@@ -47,13 +47,13 @@ ARG         BASE_URL
 ARG         DATABASE_URL
 
 WORKDIR     /home/app/avalon
-RUN         yarn cache clean && rm -rf ./node_modules
+RUN         yarn cache clean && rm -rf ./node_modules && yarn install
 
 RUN         cd avalon \
          && mkdir -p tmp/pids \
          && touch log/production.log \
          && ls -alh log \
-         # && bundle exec whenever -w -f config/docker_schedule.rb \
+         && bundle exec whenever -w -f config/docker_schedule.rb \
          && bundle exec rake assets:precompile SECRET_KEY_BASE=$(ruby -r 'securerandom' -e 'puts SecureRandom.hex(64)')
 
 USER        root
