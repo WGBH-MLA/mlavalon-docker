@@ -60,5 +60,5 @@ ADD         ./profile /etc/profile
 RUN         mkdir /streamfiles && chmod 0777 /streamfiles
 
 WORKDIR     /home/app/avalon
-RUN         yarn install
+RUN         yarn cache clean && rm -rf ./node_modules
 VOLUME      /streamfiles
