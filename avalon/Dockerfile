@@ -45,16 +45,16 @@ RUN         cd avalon && \
               cd ..
 ARG         BASE_URL
 ARG         DATABASE_URL
-
 WORKDIR     /home/app/avalon
-RUN         yarn cache clean && rm -rf ./node_modules && yarn install
+RUN         yarn cache clean && rm -rf ./node_modules
 
-RUN         cd avalon
-RUN          mkdir -p tmp/pids
-RUN          touch log/production.log
-RUN          ls -alh log
-RUN          bundle exec whenever -w -f config/docker_schedule.rb
-RUN          bundle exec rake assets:precompile SECRET_KEY_BASE=$(ruby -r 'securerandom' -e 'puts SecureRandom.hex(64)')
+WORKDIR /home/app
+RUN         cd avalon \
+         && mkdir -p tmp/pids \
+         && touch log/production.log \
+         && ls -alh log \
+         && bundle exec whenever -w -f config/docker_schedule.rb \
+         && bundle exec rake assets:precompile SECRET_KEY_BASE=$(ruby -r 'securerandom' -e 'puts SecureRandom.hex(64)')
 
 USER        root
 ADD         ./avalon.conf /etc/nginx/sites-available/avalon
