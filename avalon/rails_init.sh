@@ -14,10 +14,10 @@ chown -R app /masterfiles
 
 cd /home/app/avalon
 
+su -m -c "bundle exec rake db:migrate" app
+
 # Bringing in the envars we need
 # TODO: Something better?
 env | sed 's#^#export #1;s#=#&"#1;s#$#"&#1' > /etc/profile.d/avalon_nginx_env
 
 service nginx restart
-
-su -m -c "bundle exec rake db:migrate" app
