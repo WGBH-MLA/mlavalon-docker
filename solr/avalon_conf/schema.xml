@@ -188,6 +188,11 @@
     <field name="lat" type="tdouble" stored="true" indexed="true" multiValued="false"/>
     <field name="lng" type="tdouble" stored="true" indexed="true" multiValued="false"/>
 
+    <!-- MLAvadded these -->
+    <field name="content_type_note" type="string" stored="true" indexed="true" multiValued="true"/>
+    <field name="technical_note" type="string" stored="true" indexed="true" multiValued="true"/>
+    <field name="item_type_note" type="string" stored="true" indexed="true" multiValued="true"/>
+
     <!-- NOTE:  not all possible Solr field types are represented in the dynamic fields -->
 
     <!-- text (_t...) -->
