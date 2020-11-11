@@ -61,4 +61,10 @@ ADD         rails_init.sh /etc/my_init.d/30_rails_init.sh
 ADD         ./profile /etc/profile
 RUN         mkdir /streamfiles && chmod 0777 /streamfiles
 
+
+# add watchfolder cron
+COPY watch_folder_task /etc/cron.d/watch_folder_task
+RUN chmod 0644 /etc/cron.d/cool-task
+RUN service cron start
+
 VOLUME      /streamfiles
