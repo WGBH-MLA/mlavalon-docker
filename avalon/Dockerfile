@@ -66,6 +66,7 @@ RUN         mkdir /streamfiles && chmod 0777 /streamfiles
 COPY watch_folder_task /etc/cron.d/watch_folder_task
 RUN chmod 0644 /etc/cron.d/watch_folder_task
 RUN touch /var/log/avalon-cron.log
-RUN service cron start
 
 VOLUME      /streamfiles
+
+CMD service cron start
