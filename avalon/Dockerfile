@@ -46,7 +46,6 @@ ARG         BASE_URL
 ARG         DATABASE_URL
 WORKDIR     /home/app/avalon
 RUN         yarn cache clean && rm -rf ./node_modules
-RUN         cd /home/app/avalon && bundle exec rake db:migrate
 
 WORKDIR /home/app/avalon
 RUN mkdir -p tmp/pids 
