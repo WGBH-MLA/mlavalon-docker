@@ -329,7 +329,11 @@
     <dynamicField name="*suggest" type="textSuggest" indexed="true" stored="false" multiValued="true" />
 
     <!-- you must define copyField source and dest fields explicity or schemaBrowser doesn't work -->
+
+    <!-- GBH this default field contains all of the different fields mashed together -->
     <field name="all_text_timv" type="text" stored="false" indexed="true" multiValued="true" termVectors="true" termPositions="true" termOffsets="true"/>
+    <!-- this is the primary key link between MARS etc and avalon -->
+    <field name="media_pim_id" type="text" stored="true" indexed="true" multiValued="false" termVectors="true" termPositions="true" termOffsets="true"/>
 
 
   </fields>
