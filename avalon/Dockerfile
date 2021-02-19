@@ -24,7 +24,7 @@ RUN         ln -s /usr/bin/lsof /usr/sbin/ && \
             chown app:docker_env /etc/container_environment.sh
 ARG         AVALON_REPO=https://github.com/WGBH-MLA/mlavalon.git
 # ARG         AVALON_BRANCH=master
-ARG         AVALON_BRANCH=183-gbh-rebrand
+ARG         AVALON_BRANCH=roll-back
 WORKDIR     /home/app
 
 ADD https://api.github.com/repos/WGBH-MLA/mlavalon/git/refs/heads/$AVALON_BRANCH version.json
