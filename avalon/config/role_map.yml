@@ -5,3 +5,11 @@ production:
     - archivist1@example.com
   group_manager:
     - archivist1@example.com
+qa:
+  # Add roles for users here.
+  administrator:
+    - woo@foo.edu
+  manager:
+    - woo@foo.edu
+  group_manager:
+    - woo@foo.edu
