@@ -1,2 +1,2 @@
-* * * * * bash -lc "cd /home/app/avalon && bundle exec ruby /home/app/avalon/script/watch_folder.sh >> /var/log/avalon-cron.log 2>&1"
+* * * * * bash -lc "cd /home/app/avalon && /home/app/avalon/script/watch_folder.sh >> /var/log/avalon-cron.log 2>&1"
 # Mandatory blank line

@@ -38,10 +38,10 @@ ADD         Gemfile.local /home/app/avalon/
 ADD         config /home/app/avalon/config/
 ARG         RAILS_ENV=production
 RUN         cd avalon && \
-            gem update --system && \
-              gem install bundler && \
+            # gem update --system && \
+              gem install bundler -v 2.3.27 && \
               bundle config build.nokogiri --use-system-libraries && \
-              bundle install --path=vendor/gems --with postgres --without development test profiling mysql && \
+              bundle install --path=vendor/gems --deployment && \
               cd ..
 ARG         BASE_URL
 ARG         DATABASE_URL
@@ -53,7 +53,7 @@ RUN mkdir -p tmp/pids
 RUN touch log/production.log 
 RUN ls -alh log 
 RUN bundle exec whenever -w -f config/docker_schedule.rb 
-RUN bundle exec rake assets:precompile SECRET_KEY_BASE=$(ruby -r 'securerandom' -e 'puts SecureRandom.hex(64)')
+RUN SECRET_KEY_BASE=$(ruby -r 'securerandom' -e 'puts SecureRandom.hex(64)') bundle exec rails assets:precompile
 
 USER        root
 ADD         ./avalon.conf /etc/nginx/sites-available/avalon
@@ -64,9 +64,14 @@ RUN         mkdir /streamfiles && chmod 0777 /streamfiles
 
 
 # add watchfolder cron
-COPY watch_folder_task /etc/cron.d/watch_folder_task
-RUN chmod 0644 /etc/cron.d/watch_folder_task
+COPY watch_folder_task /var/spool/cron/crontabs/root
+RUN chmod +x /home/app/avalon/script/watch_folder.rb
+RUN chmod +x /home/app/avalon/script/watch_folder.sh
+
+# RUN chmod 0644 /etc/cron.d/watch_folder_task
 RUN touch /var/log/avalon-cron.log
+
+RUN apt-get update && apt-get install -y vim
 
 VOLUME      /streamfiles
 
