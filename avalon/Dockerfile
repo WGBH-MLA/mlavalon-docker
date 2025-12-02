@@ -71,6 +71,10 @@ RUN chmod +x /home/app/avalon/script/watch_folder.sh
 # RUN chmod 0644 /etc/cron.d/watch_folder_task
 RUN touch /var/log/avalon-cron.log
 
+# add logrotae configs for our logs
+COPY logrotate-sidekiq /etc/logrotate.d/sidekiq
+COPY logrotate-avaloncron /etc/logrotate.d/avaloncron
+
 RUN apt-get update && apt-get install -y vim
 
 VOLUME      /streamfiles

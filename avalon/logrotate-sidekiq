@@ -1,0 +1,6 @@
+/home/app/avalon/log/sidekiq.log {
+    size 10M
+    rotate 5
+    missingok
+    copytruncate
+}
